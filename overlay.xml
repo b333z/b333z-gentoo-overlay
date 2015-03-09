@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "repositories.dtd">
+<repositories xmlns="" version="1.0">
+  <repo quality="experimental" status="unofficial">
+    <name>b333z</name>
+    <description>b333z's collection of ebuilds that are broken or missing upstream</description>
+    <homepage>https://github.com/b333z/b333z-gentoo-overlay</homepage>
+    <owner type="user">
+      <email>barnes333@gmail.com</email>
+      <name>Andrew Barnes</name>
+    </owner>
+    <source type="git">https://github.com/b333z/b333z-gentoo-overlay</source>
+  </repo>
+</repositories>

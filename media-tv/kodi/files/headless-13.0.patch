@@ -1,0 +1,70 @@
+diff --git a/xbmc/AppParamParser.cpp b/xbmc/AppParamParser.cpp
+index 5b1bab2..8d76cfe 100644
+--- a/xbmc/AppParamParser.cpp
++++ b/xbmc/AppParamParser.cpp
+@@ -39,6 +39,7 @@
+ CAppParamParser::CAppParamParser()
+ {
+   m_testmode = false;
++  m_renderGUI = true;
+ }
+ 
+ void CAppParamParser::Parse(const char* argv[], int nArgs)
+@@ -107,6 +108,7 @@ void CAppParamParser::DisplayHelp()
+   printf("  --test\t\tEnable test mode. [FILE] required.\n");
+   printf("  --settings=<filename>\t\tLoads specified file after advancedsettings.xml replacing any settings specified\n");
+   printf("  \t\t\t\tspecified file must exist in special://xbmc/system/\n");
++  printf("  --headless\t\tRun XBMC headless, i.e. No GUI.\n");
+   exit(0);
+ }
+ 
+@@ -135,6 +137,8 @@ void CAppParamParser::ParseArg(const CStdString &arg)
+     g_application.SetEnableLegacyRes(true);
+   else if (arg == "--test")
+     m_testmode = true;
++  else if (arg == "--headless")
++    m_renderGUI = false;
+   else if (arg.substr(0, 11) == "--settings=")
+     g_advancedSettings.AddSettingsFile(arg.substr(11));
+   else if (arg.length() != 0 && arg[0] != '-')
+@@ -147,6 +151,11 @@ void CAppParamParser::ParseArg(const CStdString &arg)
+   }
+ }
+ 
++bool CAppParamParser::renderGUI()
++{
++  return(m_renderGUI);
++}
++
+ void CAppParamParser::PlayPlaylist()
+ {
+   if (m_playlist.Size() > 0)
+diff --git a/xbmc/AppParamParser.h b/xbmc/AppParamParser.h
+index 78d6174..3cb89b8 100644
+--- a/xbmc/AppParamParser.h
++++ b/xbmc/AppParamParser.h
+@@ -26,9 +26,11 @@ class CAppParamParser
+   public:
+     CAppParamParser();
+     void Parse(const char* argv[], int nArgs);
++    bool renderGUI();
+ 
+   private:
+     bool m_testmode;
++    bool m_renderGUI;
+     CFileItemList m_playlist;
+     void ParseArg(const CStdString &arg);
+     void DisplayHelp();
+diff --git a/xbmc/main/main.cpp b/xbmc/main/main.cpp
+index ec86426..303e00e 100644
+--- a/xbmc/main/main.cpp
++++ b/xbmc/main/main.cpp
+@@ -72,6 +72,8 @@ int main(int argc, char* argv[])
+ #ifndef TARGET_WINDOWS
+   CAppParamParser appParamParser;
+   appParamParser.Parse((const char **)argv, argc);
++
++  renderGUI = appParamParser.renderGUI();
+ #endif
+   return XBMC_Run(renderGUI);
+ }
