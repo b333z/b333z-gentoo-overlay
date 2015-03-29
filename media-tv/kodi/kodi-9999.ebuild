@@ -153,7 +153,6 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PN}-9999-no-arm-flags.patch #400617
 	epatch "${FILESDIR}"/${PN}-13.0-system-projectm.patch
 	epatch "${FILESDIR}"/headless-13.0.patch
-	epatch "${FILESDIR}"/${P}-texturepacker.patch
 
 	# some dirs ship generated autotools, some dont
 	multijob_init
@@ -167,6 +166,8 @@ src_prepare() {
 	done
 	multijob_finish
 	elibtoolize
+	
+	epatch "${FILESDIR}"/${P}-texturepacker.patch
 
 	[[ ${PV} == "9999" ]] && emake -f codegenerator.mk
 
