@@ -150,13 +150,10 @@ src_unpack() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PN}-9999-nomythtv.patch
 	epatch "${FILESDIR}"/${PN}-9999-no-arm-flags.patch #400617
 	epatch "${FILESDIR}"/${PN}-13.0-system-projectm.patch
 	epatch "${FILESDIR}"/headless-13.0.patch
 	epatch "${FILESDIR}"/${P}-texturepacker.patch
-	# The mythtv patch touches configure.ac, so force a regen
-	rm -f configure
 
 	# some dirs ship generated autotools, some dont
 	multijob_init
