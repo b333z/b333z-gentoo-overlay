@@ -162,6 +162,7 @@ src_prepare() {
 	#epatch "${FILESDIR}"/${PN}-9999-nomythtv.patch
 	#epatch "${FILESDIR}"/${PN}-9999-no-arm-flags.patch #400617
 	# The mythtv patch touches configure.ac, so force a regen
+	epatch "${FILESDIR}"/headless-13.0.patch
 	rm -f configure
 
 	# some dirs ship generated autotools, some dont
