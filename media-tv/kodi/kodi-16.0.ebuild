@@ -159,7 +159,7 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PN}-9999-no-arm-flags.patch #400617
 	epatch "${FILESDIR}"/${PN}-9999-texturepacker.patch
 	epatch "${FILESDIR}"/${PN}-16-ffmpeg3.patch
-	epatch "${FILESDIR}"/headless-13.0.patch
+	epatch "${FILESDIR}"/headless-16.0.patch
 	epatch_user #293109
 
 	# some dirs ship generated autotools, some dont
